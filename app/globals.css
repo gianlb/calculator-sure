@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 2%;
+    --foreground: 210 40% 98%;
+    --card: 210 40% 3.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 210 40% 3.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 142 76% 36%;
+    --primary-foreground: 355 7% 97%;
+    --secondary: 210 40% 7.8%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 210 40% 7.8%;
+    --muted-foreground: 210 40% 65%;
+    --accent: 142 84% 57%;
+    --accent-foreground: 210 40% 0%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 210 40% 12%;
+    --input: 210 40% 12%;
+    --ring: 142 76% 36%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Otimizações de performance */
+@layer utilities {
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Transições suaves apenas onde necessário */
+  .smooth-transition {
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+/* Otimização para motion reduzido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Otimização para telas de alta densidade */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .blur-3xl {
+    filter: blur(48px);
+  }
+
+  .blur-2xl {
+    filter: blur(32px);
+  }
+
+  .blur-lg {
+    filter: blur(12px);
+  }
+}
+
+/* Melhorias de performance para elementos estáticos */
+.static-radar {
+  contain: layout style paint;
+}
+
+.static-element {
+  will-change: auto;
+  transform: translateZ(0);
+/* Remover marca d'água do v0 */
+[data-v0-t="badge"],
+.v0-badge,
+a[href*="v0.dev"],
+div[class*="v0"],
+span[class*="v0"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Remover qualquer elemento que contenha "Built with v0" */
+*:contains("Built with v0"),
+*:contains("v0.dev") {
+  display: none !important;
+}
+}
